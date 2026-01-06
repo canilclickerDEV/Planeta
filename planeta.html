@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetary Ascension 🌌</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header class="game-header">
+            <h1><i class="fas fa-rocket"></i> PLANETARY ASCENSION</h1>
+            <div class="game-phase">
+                <span class="phase-tag">FASE 1</span>
+                <span class="phase-text">Civilização Planetária</span>
+            </div>
+        </header>
+
+        <div class="main-game-area">
+            <!-- Área do Planeta (Esquerda) -->
+            <div class="planet-section">
+                <div class="planet-container" id="planetContainer">
+                    <!-- Fundo do planeta será via CSS -->
+                    <div class="planet-overlay"></div>
+                    
+                    <!-- Construções serão adicionadas via drag & drop -->
+                    <div class="construction-area" id="constructionArea">
+                        <div class="hint-text">
+                            <i class="fas fa-hand-pointer"></i>
+                            Arraste construções para aqui
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Controles de Construção -->
+                <div class="build-controls">
+                    <h3><i class="fas fa-hard-hat"></i> CONSTRUÇÕES</h3>
+                    <div class="buildings-list" id="buildingsList">
+                        <!-- Edifícios serão adicionados via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel Lateral (Direita) -->
+            <div class="side-panel">
+                <!-- Cards de Recursos -->
+                <div class="resources-cards">
+                    <h2><i class="fas fa-chart-line"></i> RECURSOS</h2>
+                    
+                    <div class="card resource-card" data-resource="energy">
+                        <div class="card-header">
+                            <i class="fas fa-bolt"></i>
+                            <h3>ENERGIA</h3>
+                        </div>
+                        <div class="card-value">1,250 <span class="unit">MW</span></div>
+                        <div class="card-production">+45/s</div>
+                        <button class="card-btn">UPGRADE</button>
+                    </div>
+                    
+                    <div class="card resource-card" data-resource="minerals">
+                        <div class="card-header">
+                            <i class="fas fa-gem"></i>
+                            <h3>MINERAIS</h3>
+                        </div>
+                        <div class="card-value">850 <span class="unit">kT</span></div>
+                        <div class="card-production">+32/s</div>
+                        <button class="card-btn">UPGRADE</button>
+                    </div>
+                    
+                    <div class="card resource-card" data-resource="population">
+                        <div class="card-header">
+                            <i class="fas fa-users"></i>
+                            <h3>POPULAÇÃO</h3>
+                        </div>
+                        <div class="card-value">10,250 <span class="unit">hab</span></div>
+                        <div class="card-production">+12/s</div>
+                        <button class="card-btn">UPGRADE</button>
+                    </div>
+                    
+                    <div class="card resource-card" data-resource="technology">
+                        <div class="card-header">
+                            <i class="fas fa-flask"></i>
+                            <h3>TECNOLOGIA</h3>
+                        </div>
+                        <div class="card-value">450 <span class="unit">RP</span></div>
+                        <div class="card-production">+8/s</div>
+                        <button class="card-btn">UPGRADE</button>
+                    </div>
+                    
+                    <div class="card resource-card" data-resource="food">
+                        <div class="card-header">
+                            <i class="fas fa-seedling"></i>
+                            <h3>ALIMENTO</h3>
+                        </div>
+                        <div class="card-value">5,200 <span class="unit">t</span></div>
+                        <div class="card-production">+25/s</div>
+                        <button class="card-btn">UPGRADE</button>
+                    </div>
+                    
+                    <div class="card resource-card" data-resource="credits">
+                        <div class="card-header">
+                            <i class="fas fa-coins"></i>
+                            <h3>CRÉDITOS</h3>
+                        </div>
+                        <div class="card-value">12,500 <span class="unit">CR</span></div>
+                        <div class="card-production">+18/s</div>
+                        <button class="card-btn">UPGRADE</button>
+                    </div>
+                </div>
+
+                <!-- Botão de Pesquisa Tecnológica -->
+                <div class="research-section">
+                    <button class="research-btn" id="researchBtn">
+                        <i class="fas fa-sitemap"></i>
+                        ÁRVORE TECNOLÓGICA
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra de Status -->
+        <footer class="game-footer">
+            <div class="status-message" id="statusMessage">
+                <i class="fas fa-info-circle"></i>
+                Bem-vindo ao Planetary Ascension! Comece desenvolvendo seu planeta.
+            </div>
+            <div class="time-counter">
+                <i class="far fa-clock"></i>
+                <span id="gameTime">00:00:00</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal de Upgrades -->
+    <div class="modal" id="upgradeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">UPGRADE</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Conteúdo dinâmico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal da Árvore Tecnológica -->
+    <div class="modal" id="techModal">
+        <div class="modal-content tech-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-sitemap"></i> ÁRVORE TECNOLÓGICA</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tech-tree">
+                    <!-- Tecnologias serão adicionadas via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
